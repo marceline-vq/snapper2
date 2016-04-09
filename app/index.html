@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Mood Conductor</title>
+<link type="text/css" rel="stylesheet" href="css/button.css"/>	   
+<link type="text/css" rel="stylesheet" href="css/eta.css"/>     
+<link type="text/css" rel="stylesheet" href="lib/alertify.core.css"/>
+<link type="text/css" rel="stylesheet" href="lib/alertify.default.css"/>
+
+<script src="lib/alertify.js"></script>   
+<script src="js/moodplay.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="bower_components/mathjs/dist/math.min.js"></script>
+<script src="bower_components/dymo-core/dist/dymo-core.min.js"></script>
+<!--script src="bower_components/dymo-core/lib/soundtouch-js/soundtouch-min.js"></script>
+<script src="bower_components/dymo-core/src/io/dymoloader.js"></script>
+<script src="bower_components/dymo-core/src/io/globals.js"></script>
+<script src="bower_components/dymo-core/src/audio/scheduler.js"></script>
+<script src="bower_components/dymo-core/src/audio/source.js"></script>
+<script src="bower_components/dymo-core/src/audio/processor.js"></script>
+<script src="bower_components/dymo-core/src/logic/parameter.js"></script>
+<script src="bower_components/dymo-core/src/logic/dymo.js"></script>
+<script src="bower_components/dymo-core/src/logic/rendering.js"></script>
+<script src="bower_components/dymo-core/src/logic/mapping.js"></script>
+<script src="bower_components/dymo-core/src/logic/control.js"></script>
+<script src="bower_components/dymo-core/src/controls/uicontrol.js"></script>
+<script src="bower_components/dymo-core/src/controls/rampcontrols.js"></script>
+<script src="bower_components/dymo-core/src/math/functioninverter.js"></script>
+<script src="bower_components/dymo-core/src/navigators/sequential.js"></script>
+<script src="bower_components/dymo-core/src/navigators/similarity.js"></script-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body onload="Application.init()" style="margin:0px;padding:0px">
+    <canvas id="canvas">
+      <span id="marker" style="position:relative; background:#ccc;"></span>
+    </canvas>
+
+
+<div class="meta"><span id="title"></span> : <span id="artist"></span>&nbsp;&nbsp; <span id="filename"></span></div>
+<p style="text-align:center">    
+    <button  class="button green" onclick="Application.sendSPARQLQuery()"><div style="font-size:20px;font-weight:bold" id="label">Click the Grid
+    </div></button>
+ <button class="button orange" onclick="javascript:location.href='help.html'"><div style="font-size:20px;font-weight:bold">HELP</div></button>
+</p>
+
+  </body>
+</html>

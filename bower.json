@@ -1,0 +1,22 @@
+{
+  "name": "dynamicPlayer",
+  "homepage": "https://github.com/darkjazz/dynamicPlayer",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "dymo-core": "*",
+    "velocity": "^1.2.3"
+  },
+  "devDependencies": {
+    "benchmarker": "^0.0.1"
+  }
+}

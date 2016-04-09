@@ -1,0 +1,28 @@
+{
+	"@id":"dymo0",
+	"@type":"Dymo",
+	"ct":"parallel",
+	"mappings":[
+		{
+			"domainDims":[{"name":"Fade","type":"Parameter"},{"name":"index","type":"Feature"}],
+			"function":{"args":["a", "b"],"body":"return (1-b)*(1-a)+b*a;"},
+			"dymos":{"args":["d"],"body":"return d.getLevel() == 1;"},
+			"parameter":"Amplitude"
+		},
+		{
+			"domainDims":[{"name":"Tempo","type":"Parameter"},{"name":"duration","type":"Feature"}],
+			"function":{"args":["a", "b"],"body":"return a/60*b;"},
+			"dymos":{"args":["d"],"body":"return d.getLevel() == 3;"},
+			"parameter":"TimeStretchRatio"
+		},
+		{
+			"domainDims":[{"name":"Fade","type":"Parameter"},{"name":"afv:Tempo","type":"Feature"}],
+			"function":{"args":["a", "b"],"body":"return b[0]+a*(b[1]-b[0]);"},
+			"dymos":["dymo0"],
+			"parameter":"Tempo"
+		}
+	],
+	"parts":["data/roll-dymo.json","data/low-dymo.json"],
+	"similars":[],
+	"@context":"http://purl.org/ontology/dymo/context.json"
+}

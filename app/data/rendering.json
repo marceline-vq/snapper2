@@ -1,0 +1,34 @@
+{
+	"mappings":[
+		{
+			"domainDims":[{"name":"fadeRamp","type":"Ramp"}],
+			"function":{"args":["a"],"body":"return a;"},
+			"dymos":["dymo0"],
+			"parameter":"Fade"
+		},
+		{
+			"domainDims":[{"name":"fade","type":"Slider"}],
+			"function":{"args":["a"],"body":"return a;"},
+			"dymos":["dymo0"],
+			"parameter":"Fade"
+		},
+		{
+			"domainDims":[{"name":"beats per bar","type":"Slider"}],
+			"function":{"args":["a"],"body":"return 4*a;"},
+			"dymos":{"args":["d"],"body":"return d.getLevel() == 2;"},
+			"parameter":"PartCount"
+		},
+		{
+			"domainDims":[{"name":"offbeat duration","type":"Slider"}],
+			"function":{"args":["a"],"body":"return a;"},
+			"dymos":{"args":["d"],"body":"return d.getLevel() == 3 && d.getIndex()%2 == 1;"},
+			"parameter":"DurationRatio"
+		},
+		{
+			"domainDims":[{"name":"transition","type":"Button"}],
+			"function":{"args":["a"],"body":"return a;"},
+			"controls":["fadeRamp"],
+			"parameter":"RampTrigger"
+		}
+	]
+}

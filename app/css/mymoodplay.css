@@ -1,0 +1,156 @@
+* {
+	padding: 0;
+	margin: 0;
+	/*pointer-events: none;*/
+}
+
+body {
+	background: #060b14;
+	background-image: url(../img/act4blur.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: center 25%;
+	overflow: hidden;
+
+	font-family: "Helvetica Neue", "Open Sans";
+	font-weight: 100;
+}
+
+a {
+	color: #4bc2f1;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#container {
+	perspective: 50px;
+	-webkit-perspective: 50px;
+	-moz-perspective: 50px;
+	-ms-perspective: 50px;
+
+	transform-origin: 50% 100%;
+	-webkit-transform-origin: 50% 100%;
+	-moz-transform-origin: 50% 100%;
+	-ms-transform-origin: 50% 100%;
+
+	opacity: 0.9;
+}
+
+#welcome {
+	position: fixed;
+	width: 22rem;
+	left: 50%;
+	top: 45%;
+	margin-top: -1rem;
+	margin-left: -11rem;
+	
+	font-weight: 200;
+	color: #fff;
+	opacity: 0.65;
+	text-align: center;
+	font-size: 2rem;
+	line-height: 1.05rem;
+	letter-spacing: 0.135em;
+	word-spacing: -0.075rem;
+}
+
+@media screen and (max-width: 400px) {
+	#welcome {
+		font-size: 0.45rem !important;
+	}
+}
+
+#browserWidthNotice {
+	font-style: italic;
+	display: none;
+}
+
+#logo {
+	position: fixed;
+	right: 0.75rem;
+	bottom: 0.65rem;
+
+	cursor: pointer;
+
+	text-decoration: none;
+	color: #d6d6d6;
+	font-size: 0.5rem;
+	letter-spacing: 0.025em;
+}
+
+#logoDot {
+	color: #d74580;
+}
+
+.dot {
+	position: fixed;
+	width: auto;
+	height: auto;
+	padding: 10px;
+	border-radius: 50px;
+	font-size: 1.75rem;
+	color: #dddddd;
+	font-weight: 300;
+}
+
+.dot:hover{
+	cursor: default;
+}
+
+#cursor{
+	background-color: transparent;
+	border: medium dotted white;
+	width: 32px; 
+	height:32px;
+	opacity: 0.0;
+	z-index: -1;
+}
+
+.cursor_hover{
+	border: medium dashed white;
+	width: 34px;
+	height: 34px;
+}
+
+#cursorImg {
+	opacity: 0.6;
+}
+
+.play {
+	content: url(../img/play.png);
+}
+
+.pause {
+	content: url(../img/pause.png);	
+}
+
+#metadata{
+	border: 1pt solid white ;
+	border-radius: 4pt;
+	text-transform: uppercase;
+	color: #ddd;
+	width: auto;
+	position: fixed;
+	padding: 5px;
+	margin-left: 10px;
+}
+
+#menuIcon{
+	position: fixed;
+	opacity: 0.7;
+}
+
+#menuIcon img{
+	width: "64px";
+	height: "64px";
+}
+
+.mood {
+	position: fixed;
+	width: 30px;
+	height: 10px;
+	font-size: 1rem;
+}

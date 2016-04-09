@@ -1,0 +1,25 @@
+{
+  "name": "audio-server",
+  "version": "0.0.1",
+  "description": "A server app that provides audio chunks for ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/florianthalmann/audio-server.git"
+  },
+  "author": "florian thalmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/florianthalmann/audio-server/issues"
+  },
+  "homepage": "https://github.com/florianthalmann/audio-server#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "node-oxford-emotion": "^1.0.4",
+    "project-oxford": "^1.1.0"
+  }
+}

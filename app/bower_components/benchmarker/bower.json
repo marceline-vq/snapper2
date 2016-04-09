@@ -1,0 +1,23 @@
+{
+  "name": "benchmarker",
+	"version": "0.0.1",
+  "homepage": "https://github.com/florianthalmann/benchmarker",
+  "description": "A tiny benchmarker for javascript",
+  "main": "benchmarker.js",
+  "moduleType": [],
+  "keywords": [
+    "bechmarking",
+    "javascript"
+  ],
+  "authors": [
+    "florian thalmann"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

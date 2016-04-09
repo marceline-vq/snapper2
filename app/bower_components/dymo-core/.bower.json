@@ -1,0 +1,45 @@
+{
+  "name": "dymo-core",
+  "version": "0.9.38",
+  "homepage": "https://github.com/florianthalmann/dymo-core",
+  "description": "package that manages and plays back dynamic music objects and their renderings",
+  "main": "dymo.js",
+  "keywords": [
+    "dymo",
+    "web",
+    "audio",
+    "api",
+    "semantic",
+    "music"
+  ],
+  "authors": [
+    "florianthalmann"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "spec"
+  ],
+  "moduleType": [],
+  "devDependencies": {
+    "jasmine-core": "jasmine#*"
+  },
+  "dependencies": {
+    "jsonld": "jsonld.js#*",
+    "mathjs": "*",
+    "n3": "n3js#*"
+  },
+  "_release": "0.9.38",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.9.38",
+    "commit": "99842d618327671d44c0dda04fc02b2e4913b33c"
+  },
+  "_source": "git://github.com/florianthalmann/dymo-core.git",
+  "_target": "*",
+  "_originalSource": "dymo-core"
+}

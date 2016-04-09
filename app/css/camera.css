@@ -1,0 +1,48 @@
+.canvas__container {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.canvas__canvas {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.canvas__mirror {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%; 
+}
+#rubber_stamp {
+  font-family: 'Vollkorn', serif;
+  font-size: 83px;
+  line-height: 89px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: red;
+  border: 7px solid red;
+  border-radius: 10px;
+  
+  opacity: 0.8;
+  -webkit-transform: rotate(-10deg);
+  -o-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  -ms-transform: rotate(-10deg);
+  position:absolute;
+  top:32%;
+}
+#rubber_stamp::after {
+  position: absolute;
+  content: " ";
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  top: -10px;
+  left: -10px;
+  padding: 10px;
+}
+#canvas-wrap { position:relative } /* Make this a positioned parent */
+#rubber_stamp     { position:absolute; top:150px; left:140px; }
