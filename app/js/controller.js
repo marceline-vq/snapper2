@@ -1,12 +1,9 @@
 var app = angular.module("snap", []);
 
-//sets up what pages to serve when you go to a url
-
-//main top level controller for the app
+// main top level controller for the app
 app.controller("mainController", [
-
-	//the passed arguments you're using in this controler
-	// $scope is used to pass things between the controller and the html page
+	// the passed arguments you're using in this controler
+	// $scope used to pass things between the controller and the html page
 	"$scope", "$http", 
 	function($scope, $http){
 			// Grab elements, create settings, etc.
@@ -39,27 +36,26 @@ app.controller("mainController", [
 			// Trigger photo take
 			document.getElementById("snap").addEventListener("click", function() {
 				context.drawImage(video, 0, 0, 640, 480);
+				// get base64 sent to the function converting it to an image file
 				var test = canvas.toDataURL('image/png');
 				window.imageProcessed(test);
 			});
 		
 
 		window.imageProcessed = function(base64img){
-
-			
+			// sending the payload from base64 to the server
 			var base64data = base64img.replace(/^data:image\/png;base64,/, "");
 			var imgPayload = {
 				data : base64data
 			}
+			// highest emotion as calculated and received from the server
 			var highestEmo;
 			var highest = {
 				emo : highestEmo
 			}
-
-
-
 			console.log("payload constructing, sending now...");
 
+			// http post to save the image file, on success retrieve highest emotion and its value as computed by the node server
 			$http.post("/savefile", imgPayload).success(function(response){
 				var highestEmo = response.emotion;
 				var highestVal = response.value;
@@ -69,34 +65,7 @@ app.controller("mainController", [
 			});	
 		}	
 
-		function callAPI(filePath){
-			// api key i'm using
-			var apiKey = "fca2ec21f98743a69255528052fc2aea";
-			 
-			// api url for making calls to it and receiving responses 
-			var apiUrl = "https://api.projectoxford.ai/emotion/v1.0/recognize";
-
-			$.ajax({
-				url: apiUrl,
-				beforeSend: function (xhrObj) {
-					xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
-					xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", apiKey);
-				},
-				type: "POST",
-				data: filePath,
-				//dataType: "json",
-				processData: false
-			})
-			.done(function (response) {
-				ProcessResult(response);
-			})
-			.fail(function (error) {
-				$("#response").text(error.getAllResponseHeaders());
-			});
-		}
-
-
-
+		// the image saving function
 		$scope.processImage = function(){
 			var camImg = $scope.image;
 			console.log(camImg);
@@ -105,22 +74,14 @@ app.controller("mainController", [
 				data : base64Data
 			};
 
-
-
-
-			//console.log(base64image);
-			/*$http.post("/savefile", test).success(function(response){
-				console.log(response);
-			});*/
-
 			$http.post("/savefile", imageData).success(function(response){
 				console.log("from test server : " + response);
 			});
 
 
 
-		} //clickButtonToSendThingToTheServer
+		} // end processImage()
 
-	}//mainController function
+	} // mainController functions
 
 ]);
