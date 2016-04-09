@@ -46,3 +46,6 @@
 }
 #canvas-wrap { position:relative } /* Make this a positioned parent */
 #rubber_stamp     { position:absolute; top:150px; left:140px; }
+
+.canvas {  
+}
