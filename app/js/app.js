@@ -5,7 +5,7 @@ var COORD_QUERY = "findNearestTrack";
 var METADATA_QUERY = "getLocalMetadata";
 var MB_QUERY = "getMusicbrainzMetadata";
 var AUDIO_SERVICE = "loadAudioFile";
-var AUDIO_BASE_URI = "http://localhost/ilmaudio/mp3/";
+var AUDIO_BASE_URI = "http://localhost:8050/ilmaudio/mp3/";
 
 var myMoodplay = {
     moods: [
@@ -129,7 +129,7 @@ var myMoodplay = {
         myMoodplay.mbid = mbid;
         myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
         var uri = AUDIO_BASE_URI + path.replace(".wav", ".mp3");
-        //myMoodplay.processAudioResponse(uri);
+        myMoodplay.processAudioResponse(uri);
     },
 
     processMetadataResponse: function(json) {

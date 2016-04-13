@@ -222,7 +222,7 @@ var Application = {
     Application.sendRequest(MB_URI + mbid + "?inc=artist-credits&fmt=json", Application.processMBResponse);
     var uri = path; //AUDIO_BASE_URI + path.replace(".wav", ".mp3");
     Application.sendRequest(DYMO_URI + "getDymoForFilename?filename=" + path + "&uri=" + uri, Application.processDymoResponse);
-    //Application.processAudioResponse(dymo);
+   // Application.processAudioResponse(dymo);
   },
 
   processDymoResponse: function(dymo) {
