@@ -102,7 +102,7 @@ function animate() {
 			translateY: event.pageY - 30
 		}, {duration: 4000});
 		assignCursorEvents();
-		myMoodplay.sendSPARQLQuery(event.pageX / screenWidth, ( 1.0 - (event.pageY / screenHeight)));
+		myMoodplay.sendSPARQLQuery();
 	});
 }
 
@@ -130,7 +130,7 @@ var containerAnimationMap = {
 	opacity: [ 0.90, 0.55 ]};
 
 var uri = MOOD_URI + "/" + LIMITS_QUERY + "?configNumber=" + configNumber;
-myMoodplay.sendRequest(uri, myMoodplay.processLimitsResponse);
+myMoodplay.sendRequest(uri, myMoodplay.processMBResponse);
 
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -153,11 +153,27 @@ $("#menuIcon").velocity({
 	opacity: 0.2
 }, { duration: 10 });
 
+var moodOriginal = "depressive";
+var moodInput = document.getElementById('mood_tag');
+moodInput.display = "block";
+moodInput.innerHTML = moodOriginal;
+
+var currentMood = myMoodplay.moods[5][0];
 
 for (var m = 0; m < myMoodplay.moods.length; m++)
 {
 	dotsHtml += "<div id='%1' class='dot'>%1</div>".replace("%1", myMoodplay.moods[m][0].replace(" ", "")).replace("%1", myMoodplay.moods[m][0]);
 }
+//for (var m = 0; m < myMoodplay.moods.length; m++)
+//{
+	//console.log(myMoodplay.moods[0][0]);
+	/*if(currentMood == moodOriginal){
+		console.log("mood found : " + currentMood);
+		dotsHtml += "<div id='%1' class='dot'>%1</div>".replace("%1", myMoodplay.moods[0][0].replace(" ", "")).replace("%1", currentMood);	
+		
+	} else console.log("MOOD NOT FOUND");
+	
+}*/
 
 $dots = $(dotsHtml);
 

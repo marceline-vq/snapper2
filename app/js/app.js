@@ -5,7 +5,7 @@ var COORD_QUERY = "findNearestTrack";
 var METADATA_QUERY = "getLocalMetadata";
 var MB_QUERY = "getMusicbrainzMetadata";
 var AUDIO_SERVICE = "loadAudioFile";
-var AUDIO_BASE_URI = "http://localhost:8050/ilmaudio/mp3/";
+var AUDIO_BASE_URI = "http://localhost/ilmaudio/mp3/";
 
 var myMoodplay = {
     moods: [
@@ -127,14 +127,15 @@ var myMoodplay = {
         var path = dict[0].path.value;
         myMoodplay.path = path;
         myMoodplay.mbid = mbid;
-        myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
+        //myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
+        myMoodplay.sendRequest(MOOD_URI + "/" + METADATA_QUERY + "?filename=" + myMoodplay.path, myMoodplay.processMetadataResponse);
         var uri = AUDIO_BASE_URI + path.replace(".wav", ".mp3");
         myMoodplay.processAudioResponse(uri);
     },
 
     processMetadataResponse: function(json) {
         var dict = jQuery.parseJSON(json);
-        myMoodplay.showMetadata(dict[0].title.value, dict[0].artist.value, dict[0].album.value, dict[0].year.value);
+        //myMoodplay.showMetadata(dict[0].title.value, dict[0].artist.value, dict[0].album.value, dict[0].year.value);
     },
 
     processAudioResponse: function(fileuri) {
@@ -159,7 +160,7 @@ var myMoodplay = {
     },
 
     sendSPARQLQuery: function(x, y) {
-        myMoodplay.clear();
+       // myMoodplay.clear();
         var v = myMoodplay.linlin(x, 0.0, 1.0, limits.vmin, limits.vmax);
         var a = myMoodplay.linlin(y, 0.0, 1.0, limits.amin, limits.amax);
         var uri = MOOD_URI + "/" + COORD_QUERY + "?valence=" + v + "&arousal=" + a;
@@ -189,10 +190,10 @@ var myMoodplay = {
         $("#artist").text(artist);
         $("#album").text(album);
         if (year > 0) $("#year").text(year);
-        $("#metadata").velocity({ 
+        /*$("#metadata").velocity({ 
             opacity: 1.0
         }, { duration: 1000 }).velocity({
             opacity: 0.0
-        }, { delay: 3000, duration: 1000 });
+        }, { delay: 3000, duration: 1000 });*/
     }
 }

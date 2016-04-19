@@ -1,3 +1,7 @@
+var offset = 30;
+var fadeTime = 6;
+var duration = 60;
+
 var AudioPlayer = {
   init: function() {
     AudioPlayer.enabled = true;
@@ -47,13 +51,13 @@ var AudioPlayer = {
   },
 
   crossFadeTracks: function(trackOut, trackIn) {
+    AudioPlayer.current = trackIn;
+
     trackOut.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime);
     trackOut.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime + fadeTime);
 
     trackIn.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime);
     trackIn.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime + fadeTime);
-
-    AudioPlayer.current = trackIn;
 
   },
 

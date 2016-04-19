@@ -43,9 +43,9 @@
 scores: [
     [anger 0.773313 - angry | FLIP : chill / mellow
     [contempt : 0.00267089019 - dark / harsh | FLIP : easy / laid back
-    [disgust : 0.22368221 - ? apocalyptic | FLIP : soft / smooth
+    [disgust : 0.22368221 - cold / apocalyptic | FLIP : soft / smooth
     [fear : 0.00000742666771 - scary / terror | FLIP : slow 
-    [happiness : 0.00000759966861 - happy / upbeat | FLIP : energetic
+    [happiness : 0.00000759966861 - happy / upbeat | FLIP : melancholy
     [neutral : 0.00029044805 - neutral / chill | FLIP : quirky / fun / epic
     [sadness : 0.000014404236 - sad / melancholy / depressive | FLIP : uplifting
     [surprise : 0.0000140514667 - epic / nostalgia | FLIP : mellow

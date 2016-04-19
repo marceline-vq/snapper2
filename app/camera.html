@@ -3,21 +3,31 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
 <script src="js/controller.js"></script>
+<script src="js/emotionplay.js"></script>
+
 <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/camera.css"
 <title>Snapper</title>
 </head>
 <!-- MAIN JS CONTROLLER -->
 <body ng-controller="mainController">
-	<div class="canvas__container">
-  		<video id="video" width="640" height="480" autoplay></video>
- 	</div>
-	<div id="canvas-wrap">
-		<canvas id="canvas" width="640" height="480"></canvas>
-  		<div id="rubber_stamp" style="display:none"></div>
+	<div>
+		<div class="canvas__container" width="45%">
+	  		<video id="video" width="640" height="480" autoplay></video>
+	 	</div>
+		<div id="canvas-wrap" width="45%">
+			<canvas id="camera_canvas" width="640" height="480"></canvas>
+	  		<div id="rubber_stamp" style="display:none"></div>
+		</div>
 	</div>
-	<button id="snap">Snap</button>
+	<div>
+		<button id="snap">Snap</button>
 	<input id="image-base64" ng-model="image.base64" value="" style="display:none">
+	<div id="play_button"><img width="40px" height="40px" src="img/playBtn.png"></div>
+	<div id="mood_tag"></div>
+	</div>
 </body>
 </html>

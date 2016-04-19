@@ -117,79 +117,7 @@ var Application = {
     dymoManager.loadDymoAndRendering('data/mixdymo.json', 'data/rendering.json');
   },
 
-  tl: { r: 200, g: 0, b: 0 },
-  tr: { r: 200, g: 150, b: 0 },
-  bl: { r: 0, g: 50, b: 100 },
-  br: { r: 200, g: 230, b: 80 },
-  
-  interpolateColor: function(a, b, x) {
-    return {
-      r: Math.floor(a.r + (b.r - a.r) * x),
-      g: Math.floor(a.g + (b.g - a.g) * x),
-      b: Math.floor(a.b + (b.b - a.b) * x)
-    };
-  },
 
-  draw: function() {
-    var xstep = cw/50;
-    var ystep = ch/50;
-    var ctx = this.canvas.getContext("2d");  
-    ctx.clearRect(0, 0, cw, ch);
-
-    var list = [];
-
-   	for (var y = 0; y < ch; y += ystep) {
-	      var left = this.interpolateColor(this.tl, this.bl, y/ch);
-	      var right = this.interpolateColor(this.tr, this.br, y/ch);
-	      for (var x = 0; x < cw; x += xstep) {
-	        var color = this.interpolateColor(left, right, x/cw);
-	        ctx.fillStyle = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
-	        ctx.fillRect(x, y, xstep+1, ystep+1);
-	      }
-    }
-
-    if (this.marker) {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-      ctx.beginPath();
-      ctx.arc(this.marker.x, this.marker.y, 20, 0, Math.PI*2, true); 
-      ctx.fill();
-      //ctx.translate(this.marker.x, this.marker.y);
-       ctx.save();
-	  ctx.font = "16px Arial";
-	  ctx.textAlign = 'center';
-	  ctx.fillStyle = "rgb(255,255,255)";
-		
-	  textLength = ctx.measureText(this.marker.title);
-	  //alertify.log(this.marker.x+' '+textLength.width);
-	if( this.marker.y <ch/2)    {
-	  	if( this.marker.x < textLength.width/2) {
-			  ctx.fillText(this.marker.title,this.marker.x+textLength.width/2,this.marker.y+35);
-			                 }
-		else if( this.marker.x > cw-textLength.width/2) {
-			  ctx.fillText(this.marker.title,this.marker.x-textLength.width/2,this.marker.y+35);
-				                 }
-		
-		else{
-		ctx.fillText(this.marker.title,this.marker.x,this.marker.y+35);
-	           }
-	                                 }
-	  else{
-		if( this.marker.x < textLength.width/2) {
-			 ctx.fillText(this.marker.title,this.marker.x+textLength.width/2,this.marker.y-25);
-				
-			                 }
-		else if( this.marker.x > cw-textLength.width/2) {
-			 ctx.fillText(this.marker.title,this.marker.x-textLength.width/2,this.marker.y-25);
-							}
-		else{
-	    ctx.fillText(this.marker.title,this.marker.x ,this.marker.y-25);
-		}
-	 }
-	
-	 ctx.restore();	
-  }
-},
-    
   sendRequest: function(uri, callback) {
     var request = new XMLHttpRequest();
     request.open('GET', uri, true); 
@@ -256,6 +184,7 @@ var Application = {
     var title = dict.title;
     var artist = dict['artist-credit'][0].artist.name;
     Application.showMetadata(title, artist);
+    
   },
 
   onMouseUp: function(event) {
@@ -277,11 +206,11 @@ var Application = {
     if(!clicked)
       return;
     Application.clear();
-    var x = xclick / cw;
-    var y = 1 - yclick / ch;
-    var v = Application.linlin(x, 0.0, 1.0, limits.vmin, limits.vmax);
-    var a = Application.linlin(y, 0.0, 1.0, limits.amin, limits.amax);
-    var uri = MOOD_URI + COORD_SERVICE + "?valence=" + v + "&arousal=" + a + "&limit=1";
+   // var x = xclick / cw;
+   // var y = 1 - yclick / ch;
+    var v = Application.linlin(0.0, 1.0, limits.vmin, limits.vmax);
+    var a = Application.linlin(0.0, 1.0, limits.amin, limits.amax);
+    var uri = MOOD_URI + COORD_SERVICE + "?valence=" + "&arousal=" + "&limit=1";
     this.sendRequest(uri, this.processMoodResponse);
   },
 
@@ -293,20 +222,15 @@ var Application = {
 
   setMarker: function(event) {
     this.marker = {
-      x: event.pageX,
-      y: event.pageY,
-	  title: 'null'
+  	  title: 'null'
     };
 
-    var x = event.pageX / cw;
-    var y = 1 - event.pageY / ch;
-
     this.label.innerHTML = 'Click to send';
-	  this.marker.title = this.findMood(x, y);
+	  this.marker.title = this.findMood();
   },
 
-  findMood: function(x, y) {
-    var distance = 1;
+  findMood: function() {
+  /*  var distance = 1;
     var index = null;
     
     for (var i = 0; i < this.moods.length; i++) {
@@ -319,9 +243,18 @@ var Application = {
         distance = d;
         index = i;
       }
-    }
+    }*/
+    var currentMood;
 
-    return this.moods[index][0];
+    var moodInput = document.getElementById('mood_tag');
+    for(var i=0; i<this.moods.length; i++){
+      var mood = this.moods[i];
+      if(mood == moodInput) currentMood = mood;
+      else console.log("MOOD COULD NOT BE RETRIEVED");
+    }
+    console.log("MOOD : "+mood);
+    return mood;
+    //return this.moods[index][0];
   },
 
   clear: function() {
