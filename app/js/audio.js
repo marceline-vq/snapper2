@@ -1,6 +1,7 @@
 var offset = 30;
-var fadeTime = 6;
+var fadeTime = 4;
 var duration = 60;
+var track;
 
 var AudioPlayer = {
   init: function() {
@@ -20,7 +21,14 @@ var AudioPlayer = {
           track = { "filename": filename };
           myMoodplay.playlist.push(track);
           AudioPlayer.createSource(buffer, filename);
+
+
+
         }
+                //console.log("popping : " + myMoodplay.playlist);
+        myMoodplay.playlist.pop(track);
+       myMoodplay.playlist.pop(AudioPlayer.current);
+        //console.log("popped : " + myMoodplay.playlist);
       }, function(err) {
         throw new Error(err);
       });
@@ -42,7 +50,12 @@ var AudioPlayer = {
     track.source.start(0.0, offset, duration);    
     if (AudioPlayer.current != null)
     {
+      //console.log("current track : " + AudioPlayer.current);
+      //console.log("next track : " + track);
       AudioPlayer.crossFadeTracks(AudioPlayer.current, track);
+  //    //console.log("popping : " + myMoodplay.playlist);
+    //  myMoodplay.playlist.pop(track);
+     // //console.log("popped : " + myMoodplay.playlist);
     }
     else
     {
@@ -52,12 +65,14 @@ var AudioPlayer = {
 
   crossFadeTracks: function(trackOut, trackIn) {
     AudioPlayer.current = trackIn;
-
+    
     trackOut.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime);
     trackOut.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime + fadeTime);
 
     trackIn.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime);
     trackIn.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime + fadeTime);
+
+    
 
   },
 

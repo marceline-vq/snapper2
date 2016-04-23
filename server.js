@@ -44,16 +44,14 @@
 		/*		var emotion = emotionAPI.recognize("image", imgPath, function(cb) {
     				console.log(cb);
   				});*/
-  				console.log("#1. BEFORE ANALYSING WITH API Client");
+  				//console.log("#1. BEFORE ANALYSING WITH API Client");
   				client.emotion.analyzeEmotion({
     				path: imgPath,
 				}).then(function (result) {
     				//console.log(response.scores);
-
+    				console.log(result);
 					var emotions = result[0].scores;
-					console.log("scores : " + emotions);
 					var anger = emotions.anger;
-					console.log("anger " + anger);
 					
 					var highestValue = -1;
 					var emotionName;
@@ -73,7 +71,7 @@
 
 					matchedMood = selectMood(highestEmotion);
 					flippedMood = flipMood(highestEmotion);
-					console.log("#3. server.js BEFORE responses (emotion/value/mood) are sent");
+				//	console.log("#3. server.js BEFORE responses (emotion/value/mood) are sent");
 					response.send({
 						emotion : highestEmotion, 
 						value : highestValue,

@@ -6,7 +6,7 @@ var METADATA_QUERY = "getLocalMetadata";
 var MB_QUERY = "getMusicbrainzMetadata";
 var AUDIO_SERVICE = "loadAudioFile";
 var AUDIO_BASE_URI = "http://localhost/ilmaudio/mp3/";
-
+var limits;
 var myMoodplay = {
     moods: [
         ['pathetic',0.12,0.27,0,0],
@@ -93,7 +93,9 @@ var myMoodplay = {
     ],
  
     init: function() {
+//        myMoodplay.playlist = [];
         myMoodplay.playlist = Array();
+        
     },
     
     sendRequest: function(uri, callback) {
@@ -127,19 +129,30 @@ var myMoodplay = {
         var path = dict[0].path.value;
         myMoodplay.path = path;
         myMoodplay.mbid = mbid;
-        //myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
-        myMoodplay.sendRequest(MOOD_URI + "/" + METADATA_QUERY + "?filename=" + myMoodplay.path, myMoodplay.processMetadataResponse);
+        myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
+       // myMoodplay.sendRequest(MOOD_URI + "/" + METADATA_QUERY + "?filename=" + myMoodplay.path, myMoodplay.processMetadataResponse);
         var uri = AUDIO_BASE_URI + path.replace(".wav", ".mp3");
+        //console.log("PROCESSING AUDIO RESPONSE FROM APP.JS");
+         
         myMoodplay.processAudioResponse(uri);
+      
+
     },
 
     processMetadataResponse: function(json) {
         var dict = jQuery.parseJSON(json);
-        //myMoodplay.showMetadata(dict[0].title.value, dict[0].artist.value, dict[0].album.value, dict[0].year.value);
+        myMoodplay.showMetadata(dict[0].title.value, dict[0].artist.value, dict[0].album.value, dict[0].year.value);
     },
 
     processAudioResponse: function(fileuri) {
+       // AudioPlayer.playlist = {};
+        //console.log("LOADING TRACK FROM APP.JS processAudioResponse");
+      //  //console.log("trackk " + AudioPlayer.loadTrack(fileuri));
+        //console.log("trackk uri " + fileuri);
         AudioPlayer.loadTrack(fileuri);
+        AudioPlayer.tracks = [];
+         myMoodplay.playlist = [];
+               //console.log(myMoodplay.playlist);
     },
 
     processMBResponse: function(json) {
@@ -148,8 +161,11 @@ var myMoodplay = {
         {
             var title, artist, album, date;
             title = dict.title;
+            //console.log("Title : " + title);
             artist = dict['artist-credit'][0].artist.name;
+            
             album = dict['releases'][0].title;
+            
             date = new Date(dict['releases'][0].date);
             myMoodplay.showMetadata(title, artist, album, date.year);
         }
@@ -160,10 +176,12 @@ var myMoodplay = {
     },
 
     sendSPARQLQuery: function(x, y) {
-       // myMoodplay.clear();
+        myMoodplay.clear();
+        
         var v = myMoodplay.linlin(x, 0.0, 1.0, limits.vmin, limits.vmax);
         var a = myMoodplay.linlin(y, 0.0, 1.0, limits.amin, limits.amax);
         var uri = MOOD_URI + "/" + COORD_QUERY + "?valence=" + v + "&arousal=" + a;
+        //console.log("SENDING SPARQL REQ FROM APP.JS");
         this.sendRequest(uri, this.processMoodResponse);
     },
 
@@ -190,7 +208,7 @@ var myMoodplay = {
         $("#artist").text(artist);
         $("#album").text(album);
         if (year > 0) $("#year").text(year);
-        /*$("#metadata").velocity({ 
+       /* $("#metadata").velocity({ 
             opacity: 1.0
         }, { duration: 1000 }).velocity({
             opacity: 0.0

@@ -51,3 +51,7 @@
   width:45%;
 } /* Make this a positioned parent */
 #rubber_stamp     { position:absolute; top:150px; left:140px; }
+.music_info {
+  background-color: #000;
+  color: #fff;
+}
