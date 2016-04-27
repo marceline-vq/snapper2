@@ -1,3 +1,4 @@
+// VARIABLES SETTING UP THE PATHS AND QUERIES
 var configNumber = 4;
 var MOOD_URI = "http://127.0.0.1:8070";
 var LIMITS_QUERY = "coordinateLimits";
@@ -8,6 +9,7 @@ var AUDIO_SERVICE = "loadAudioFile";
 var AUDIO_BASE_URI = "http://localhost/ilmaudio/mp3/";
 var limits;
 var myMoodplay = {
+    // mood-tag list
     moods: [
         ['pathetic',0.12,0.27,0,0],
         ['dark',0.12,0.38,0,0],
@@ -49,55 +51,12 @@ var myMoodplay = {
         ['happy',0.92,0.52,0,0],
         ['upbeat',0.91,0.6,0,0]
     ],
-
-    colors: [
-        [ 29, 33, 255 ],
-        [ 94, 52, 255 ],
-        [ 153, 61, 255 ],
-        [ 255, 11, 11 ],
-        [ 255, 8, 8 ],
-        [ 42, 99, 255 ],
-        [ 152, 150, 255 ],
-        [ 255, 83, 83 ],
-        [ 42, 180, 255 ],
-        [ 18, 196, 255 ],
-        [ 121, 235, 255 ],
-        [ 119, 177, 255 ],
-        [ 255, 255, 255 ],
-        [ 255, 96, 96 ],
-        [ 255, 17, 17 ],
-        [ 50, 255, 236 ],
-        [ 82, 255, 255 ],
-        [ 166, 255, 235 ],
-        [ 108, 255, 205 ],
-        [ 182, 255, 214 ],
-        [ 193, 255, 198 ],
-        [ 255, 250, 193 ],
-        [ 255, 168, 102 ],
-        [ 0, 255, 158 ],
-        [ 27, 255, 165 ],
-        [ 51, 255, 130 ],
-        [ 35, 255, 80 ],
-        [ 111, 255, 109 ],
-        [ 158, 255, 101 ],
-        [ 255, 186, 12 ],
-        [ 255, 248, 115 ],
-        [ 255, 251, 58 ],
-        [ 255, 198, 53 ],
-        [ 0, 255, 64 ],
-        [ 0, 255, 8 ],
-        [ 32, 255, 20 ],
-        [ 112, 255, 47 ],
-        [ 158, 255, 41 ],
-        [ 188, 255, 42 ]    
-    ],
- 
+    // setting up the Moodplay playlist  
     init: function() {
-//        myMoodplay.playlist = [];
         myMoodplay.playlist = Array();
         
     },
-    
+    // main send request function
     sendRequest: function(uri, callback) {
         var request = new XMLHttpRequest();
         request.open('GET', uri, true); 
@@ -113,7 +72,7 @@ var myMoodplay = {
         };
         request.send(null);
     },
-
+    // process the limits for values
     processLimitsResponse: function(json) {
         var dict = jQuery.parseJSON(json);
         limits = {};
@@ -130,13 +89,8 @@ var myMoodplay = {
         myMoodplay.path = path;
         myMoodplay.mbid = mbid;
         myMoodplay.sendRequest(MOOD_URI + "/" + MB_QUERY + "?mbid=" + mbid, myMoodplay.processMBResponse);
-       // myMoodplay.sendRequest(MOOD_URI + "/" + METADATA_QUERY + "?filename=" + myMoodplay.path, myMoodplay.processMetadataResponse);
         var uri = AUDIO_BASE_URI + path.replace(".wav", ".mp3");
-        //console.log("PROCESSING AUDIO RESPONSE FROM APP.JS");
-         
         myMoodplay.processAudioResponse(uri);
-      
-
     },
 
     processMetadataResponse: function(json) {
@@ -144,15 +98,9 @@ var myMoodplay = {
         myMoodplay.showMetadata(dict[0].title.value, dict[0].artist.value, dict[0].album.value, dict[0].year.value);
     },
 
+    // main function to play track from audioplayer
     processAudioResponse: function(fileuri) {
-       // AudioPlayer.playlist = {};
-        //console.log("LOADING TRACK FROM APP.JS processAudioResponse");
-      //  //console.log("trackk " + AudioPlayer.loadTrack(fileuri));
-        //console.log("trackk uri " + fileuri);
         AudioPlayer.loadTrack(fileuri);
-        AudioPlayer.tracks = [];
-         myMoodplay.playlist = [];
-               //console.log(myMoodplay.playlist);
     },
 
     processMBResponse: function(json) {
@@ -161,7 +109,6 @@ var myMoodplay = {
         {
             var title, artist, album, date;
             title = dict.title;
-            //console.log("Title : " + title);
             artist = dict['artist-credit'][0].artist.name;
             
             album = dict['releases'][0].title;
@@ -175,22 +122,22 @@ var myMoodplay = {
         }
     },
 
+    // SPARQL query function
     sendSPARQLQuery: function(x, y) {
+        // call the clear metadata function before sending the next request
         myMoodplay.clear();
-        
         var v = myMoodplay.linlin(x, 0.0, 1.0, limits.vmin, limits.vmax);
         var a = myMoodplay.linlin(y, 0.0, 1.0, limits.amin, limits.amax);
         var uri = MOOD_URI + "/" + COORD_QUERY + "?valence=" + v + "&arousal=" + a;
-        //console.log("SENDING SPARQL REQ FROM APP.JS");
         this.sendRequest(uri, this.processMoodResponse);
     },
-
+    // setting up max limits for arousal / valence
     linlin: function(val, inmin, inmax, outmin, outmax) {
         if (val <= inmin) return outmin;
         if (val >= inmax) return outmax;
         return (val - inmin) / (inmax-inmin) * (outmax-outmin) + outmin;
     },
-
+    // clear the metadata between tracks
     clear: function() {
         $("#filename").text("");  
         $("#title").text("");
@@ -203,15 +150,11 @@ var myMoodplay = {
         $("#filename").text(path);
     },
 
+    // function to display the metadata
     showMetadata: function(title, artist, album, year) {
         $("#title").text(title);
         $("#artist").text(artist);
         $("#album").text(album);
         if (year > 0) $("#year").text(year);
-       /* $("#metadata").velocity({ 
-            opacity: 1.0
-        }, { duration: 1000 }).velocity({
-            opacity: 0.0
-        }, { delay: 3000, duration: 1000 });*/
     }
 }

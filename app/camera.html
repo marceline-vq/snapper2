@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html ng-app="snap">
 <head>
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/velocity/velocity.min.js" id="library"></script>
+<!-- IMPORTING ALL THE EXTRA JS FILES + ANGULAR, JQUERY -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 <script src="js/audio.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controller.js"></script>
 
-
-<link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+<!-- IMPORTING THE STYLESHEET FOR THE PAGE AS WELL AS THE FONTS -->
+<link href='https://fonts.googleapis.com/css?family=Vollkorn|Permanent+Marker|Righteous|Patua+One' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/camera.css"
-<title>Snapper</title>
+<title></title>
 </head>
 <!-- MAIN JS CONTROLLER -->
 <body ng-controller="mainController">
-	<div>
+	<!-- CAMERA WRAPPER FRO VIDEO AND CANVAS ELEMENTS -->
+	<div class="camera_wrapper">
 		<div class="canvas__container" width="45%">
 	  		<video id="video" width="640" height="480" autoplay></video>
 	 	</div>
@@ -25,21 +25,35 @@
 	  		<div id="rubber_stamp" style="display:none"></div>
 		</div>
 	</div>
-	<div>
-		<button id="snap">Snap</button>
+	<!-- INPUT FOR RETRIEVING THE BASE64 VALUE OF THE IMAGE -->	
 	<input id="image-base64" ng-model="image.base64" value="" style="display:none">
-	<div id="play_btn1"><img width="40px" height="40px" src="img/play01.png"></div>
-	<label for = "play_btn1">match mood</label>
-	<div id="play_btn2"><img width="45px" height="45px" src="img/play02.png"></div>
-	<label for = "play_btn2">flip mood</label>
-	<div id="mood_tag"></div>
+
+	<!-- BUTTON WRAPPER FOR SNAP, PLAY, AND PLAY FLIPPED BUTTONS -->
+	<div id="button_wrapper">
+		<div id="play">
+			<button id="play_btn1"><img width="100px" height="100px" src="img/play01.png"></button>
+			<label id="play_lbl">Play</label>
+		</div>		
+		<div id="snap">
+			<button id="snap_btn"><img src="img/camera_btn.png" width="100px" height="100px"></button>
+			
+			<label id="snap_lbl">Snap</label>
+		</div>
+		<div id="play_reverse">
+			<button id="play_btn2"><img width="100px" height="100px" src="img/play02.png"></button>
+			<label id="play_reverse_lbl">Flip</label>
+		</div>
 	</div>
-	<div class="music_info">
-		<div id="metadata">
-		<div id="title">title</div>
-		<div id="artist">artist</div>
-		<div id="album">album</div>		
-		<div id="year">2000</div>
+	<!-- MOOD WRAPPER FOR MOOD INPUT -->
+	<div id="wrapper_for_mood">
+		<div id="mood_tag"></div>
+		<!-- TRACK'S METADATA WRAPPER -->
+		<div id="metadata_wrapper">
+			<div id="title"></div>
+			<div id="artist"></div>
+			<div id="album"></div>		
+			<div id="year"></div>
+		</div>
 	</div>
 </body>
 </html>

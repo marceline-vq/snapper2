@@ -1,3 +1,12 @@
+body {
+  text-align: center;
+}
+/* 
+    POSITIONING CAMERA ELEMENTS 
+*/
+.camera_wrapper {
+  margin-left: -53px;
+}
 .canvas__container {
   height: 100%;
   position: relative;
@@ -17,6 +26,9 @@
   top: 0;
   width: 100%; 
 }
+/*
+    STYLING THE EMOTION STAMP ON TOP OF THE CANVAS
+*/
 #rubber_stamp {
   font-family: 'Vollkorn', serif;
   font-size: 83px;
@@ -26,8 +38,7 @@
   color: red;
   border: 7px solid red;
   border-radius: 10px;
-  
-  opacity: 0.8;
+  opacity: 0.4;
   -webkit-transform: rotate(-10deg);
   -o-transform: rotate(-10deg);
   -moz-transform: rotate(-10deg);
@@ -49,9 +60,82 @@
   position:relative;
   display: inline-block;
   width:45%;
-} /* Make this a positioned parent */
-#rubber_stamp     { position:absolute; top:150px; left:140px; }
-.music_info {
-  background-color: #000;
+} 
+#rubber_stamp { 
+  position:absolute; 
+  top:150px; 
+  left:140px; 
+}
+/*
+    ALIGNING THE BUTTONS IN THEIR WRAPPER 
+*/
+#button_wrapper {
+  width: 100%;
+}
+#snap {
+  display: inline-block;
+  margin: auto;
+}
+#play {
+  display: inline-block;
+  margin: auto;
+}
+#play_reverse {
+  display: inline-block;
+  margin: auto;
+}
+#button_wrapper label {
+  display: block;
+  font-family: 'Patua One', cursive;
+}
+/*
+    STYLING THE BUTTONS UPON CLICK
+*/
+#button_wrapper button {
+  background: #fff;
+  border-radius : 0px;
+  border-color: #222;
+  transition: border-radius .2s;
+}
+button {
+  outline: none;
+}
+#button_wrapper button:hover {
+  border-radius: 10px;
+  border-color: #444;
+}
+/*
+    STYLING THE MOOD-TAG DISPLAY 
+*/
+.mood_alignment_adjuster {
+  text-align: center;
+  padding: 150px;
+}
+#wrapper_for_mood {
   color: #fff;
+  background: #fff;
+  text-align: left;
+  height: 300px;
+  margin: 50px auto auto;
+  display: inline-block;
+  min-width: 730px;
+  padding: 50px 50px 50px 150px;
+}
+#mood_tag {
+  color: #fff;
+  opacity: 0.2;
+  font-size: 110px;
+  font-family: 'Permanent Marker', cursive;
+  text-shadow: black 2px 5px;
+  display: inline-block;
+}
+/*
+    STYLING THE TRACK METADATA
+*/
+#metadata_wrapper {
+  color: #fff;
+  opacity: 0.6;
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  text-shadow: black 1px;
 }

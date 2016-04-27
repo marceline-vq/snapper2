@@ -3,13 +3,14 @@ var fadeTime = 4;
 var duration = 60;
 var track;
 
+// initialising the AudioPlayer
 var AudioPlayer = {
   init: function() {
     AudioPlayer.enabled = true;
     AudioPlayer.current = null;
     AudioPlayer.tracks = {};
   },
-
+  // adding the track to the playlist and calling the function to play it
   loadTrack: function(filename) {
     var request = new XMLHttpRequest();
     request.open('GET', filename, true);
@@ -21,22 +22,14 @@ var AudioPlayer = {
           track = { "filename": filename };
           myMoodplay.playlist.push(track);
           AudioPlayer.createSource(buffer, filename);
-
-
-
         }
-                //console.log("popping : " + myMoodplay.playlist);
-        myMoodplay.playlist.pop(track);
-       myMoodplay.playlist.pop(AudioPlayer.current);
-        //console.log("popped : " + myMoodplay.playlist);
       }, function(err) {
         throw new Error(err);
       });
     }
-
     request.send();
   },
-
+  // function to start playing the corresponding track from Moodplay
   createSource: function(buffer, filename) {
     var source = context.createBufferSource();
     source.buffer = buffer;
@@ -48,21 +41,14 @@ var AudioPlayer = {
     track.gainNode.connect(context.destination);
     AudioPlayer.tracks[filename] = track;
     track.source.start(0.0, offset, duration);    
-    if (AudioPlayer.current != null)
-    {
-      //console.log("current track : " + AudioPlayer.current);
-      //console.log("next track : " + track);
+    if (AudioPlayer.current != null){
       AudioPlayer.crossFadeTracks(AudioPlayer.current, track);
-  //    //console.log("popping : " + myMoodplay.playlist);
-    //  myMoodplay.playlist.pop(track);
-     // //console.log("popped : " + myMoodplay.playlist);
     }
-    else
-    {
+    else{
       AudioPlayer.fadeInTrack(track); 
     }
   },
-
+  // crossfading between two tracks
   crossFadeTracks: function(trackOut, trackIn) {
     AudioPlayer.current = trackIn;
     
@@ -72,10 +58,8 @@ var AudioPlayer = {
     trackIn.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime);
     trackIn.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime + fadeTime);
 
-    
-
   },
-
+  // fading in a new track
   fadeInTrack: function (track) {
     track.gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime);
     track.gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime + fadeTime);    
